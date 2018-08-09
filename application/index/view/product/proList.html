@@ -1,0 +1,115 @@
+		{include file="public/header1"}
+		<link rel="stylesheet" href="__PUBLIC__css/shop_list.css" />
+		<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<h6>多功能锅</h6>
+				<ul>
+					<li> 
+						<h6>品牌</h6>
+						<ul>
+							{volist name="blist" id="bv"}
+							<li><a href="{:url('proList',['id'=>$one.id,'bid'=>$bv.id])}">{$bv.name}</a></li>
+							
+							{/volist}
+						</ul>
+					</li>
+					
+					<!--<li>
+						<h6>功能</h6>
+						<ul>
+							<li><a href="javascript:void(0)">炖</a></li>
+							<li><a href="javascript:void(0)">煮</a></li>
+							<li><a href="javascript:void(0)">火锅</a></li>
+							<li><a href="javascript:void(0)">蒸</a></li>
+							<li><a href="javascript:void(0)">焖</a></li>
+							<li><a href="javascript:void(0)">炒</a></li>
+							<li><a href="javascript:void(0)">炸</a></li>
+							<li><a href="javascript:void(0)">铁板烧</a></li>
+							<li><a href="javascript:void(0)">定时</a></li>
+							<li><a href="javascript:void(0)">预约</a></li>
+							<li><a href="javascript:void(0)">煮饭</a></li>
+							<li><a href="javascript:void(0)">煲仔饭</a></li>
+							<li><a href="javascript:void(0)">蛋糕</a></li>
+							<li><a href="javascript:void(0)">酸奶</a></li>
+							<li><a href="javascript:void(0)">无水无油炖肉</a></li>
+							<li><a href="javascript:void(0)">炖菜</a></li>
+						</ul>
+					</li>
+					<li>
+						<h6>容量</h6>
+						<ul>
+							<li><a href="javascript:void(0)">1L</a></li>
+							<li><a href="javascript:void(0)">2L</a></li>
+							<li><a href="javascript:void(0)">3L</a></li>
+							<li><a href="javascript:void(0)">4L</a></li>
+							<li><a href="javascript:void(0)">5L</a></li>
+						</ul>
+					</li>
+					</li>
+					<li>
+						<h6>直径</h6>
+						<ul>
+							<li><a href="javascript:void(0)">20cm及以下</a></li>
+							<li><a href="javascript:void(0)">20cm(含）-25cm（含）</a></li>
+							<li><a href="javascript:void(0)">25cm(含）-30cm（含）</a></li>
+							<li><a href="javascript:void(0)">31cm及以上</a></li>
+						</ul>
+					</li>
+					<li>
+						<h6>大家说</h6>
+						<ul>
+							<li><a href="javascript:void(0)">大容量</a></li>
+							<li><a href="javascript:void(0)">小容量</a></li>
+							<li><a href="javascript:void(0)">迷你</a></li>
+							<li><a href="javascript:void(0)">特价</a></li>
+							<li><a href="javascript:void(0)">智能</a></li>
+							<li><a href="javascript:void(0)">新款</a></li>
+						</ul>
+					</li>
+					<li>
+						<h6>材料</h6>
+						<ul>
+							<li><a href="javascript:void(0)">不锈钢</a></li>
+							<li><a href="javascript:void(0)">不锈钢内丹</a></li>
+							<li><a href="javascript:void(0)">304不锈钢</a></li>
+						</ul>
+					</li>-->
+				</ul>
+				<ul class="conditions">
+					<li><a href="javascript:void(0)">综合排榜</a></li>
+					<li><a href="{:url('proList',['id'=>$cone.id,'order'=>'sales'])}">销量<span>^</span></a></li>
+					<li>
+						<a href="{:url('proList',['id'=>$cone.id,'order'=>'price'])}">价格</a>
+						<!--<form>
+							<input type="text" />
+							<label></label>
+							<input type="text" />
+						</form>-->
+					</li>
+				</ul>
+				<ol class="pro_list">
+					{volist name="plist" id="pv"}
+					<li>
+						<a href="{:url('detail',['id'=>$pv.id])}"><img src="{$pv.thumb|substr=###,1}" width="293" height="280" alt="" /></a>
+						<h6><a href="{:url('detail',['id'=>$pv.id])}">{$pv.name}</a></h6>
+						<span class="price">¥<i>{$pv.price}</i></span>
+						<span class="purchase"><a href="confirm_order.html">点击购买</a></span>
+						<p>
+							<span class="quantity">销售量 {$pv.number}</span>
+							<span class="stock">库存 {$pv.num}件</span>
+						</p>
+					</li>
+					{/volist}
+				</ol>
+				<div class="page_list">
+					{$plist->render()}
+				</div>
+
+			</div>
+		</div>
+		<!--尾部-->
+		
+		<script type="text/javascript" src="js/shop_list.js" ></script>
+		<script type="text/javascript" src="js/page.js" ></script>
+		{include file="public/footer"}

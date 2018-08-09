@@ -1,0 +1,37 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <form action="" method="post">
+      <div class="page_title">
+       <h2 class="fl">品牌添加</h2>
+       <a href="adjust_funding.html" class="fr top_rt_btn money_icon">品牌添加</a>
+      </div>
+      <ul class="ulColumn2"> 
+       <li>
+        <span class="item_name" style="width:120px;">类型名称：</span>
+        <select name="typeid">
+        	<option value="0">--请选择商品类型--</option>
+        	{volist name="typelist" id="v"}
+        	<option value="{$v.id}">{$v.name}</option>
+        	{/volist}
+        </select>
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">属性名称：</span>
+        <input type="text" class="textbox textbox_225" value="" name="name" />
+       </li>
+       
+   	   <li>
+        <span class="item_name" style="width:120px;">属性选项：</span>
+        <input type="text" class="textbox textbox_225" value="" name="options" />&nbsp;<font color="red">各个选项以竖线隔开</font>
+       </li>
+       <li>
+        <span class="item_name" style="width:120px;"></span>
+        <input type="submit" class="link_btn" value="提交"/>
+       </li>
+      </ul>
+ </form>
+</section>
+</body>
+</html>
+

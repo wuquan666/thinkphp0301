@@ -1,0 +1,39 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <form action="" method="post">
+      <div class="page_title">
+       <h2 class="fl">角色编辑</h2>
+       <a href="adjust_funding.html" class="fr top_rt_btn money_icon">角色编辑</a>
+      </div>
+      <ul class="ulColumn2">
+       
+       <li>
+        <span class="item_name" style="width:120px;">角色名称：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.name}" name="name" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px; margin-top: -55px;">权限：</span>
+        {volist name="list" id='v'}
+        {if condition="$v['fid'] == 0"}
+        <h2 style="margin-left: 120px;"><input type="checkbox" name="level[]" value="{$v.id}" {if condition="in_array($v['id'],$one['level'])"}checked="checked"{/if} />
+        {$v.name}</h2>
+        {/if}
+        {volist name="list" id='vv'}
+	        {if condition="$vv['fid'] == $v['id']"}
+	        <span><input style="margin-left: 120px;" type="checkbox" name="level[]" value="{$vv.id}" {if condition="in_array($vv['id'],$one['level'])"}checked="checked"{/if} />
+	        {$vv.name}</span>
+	        {/if}
+        {/volist}
+        {/volist}
+       </li>
+       <li>
+        <span class="item_name" style="width:120px;"></span>
+        <input type="submit" class="link_btn" value="提交"/>
+       </li>
+      </ul>
+ </form>
+</section>
+</body>
+</html>
+

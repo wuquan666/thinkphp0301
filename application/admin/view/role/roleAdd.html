@@ -1,0 +1,75 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <form action="" method="post">
+      <div class="page_title">
+       <h2 class="fl">角色添加</h2>
+       <a href="adjust_funding.html" class="fr top_rt_btn money_icon">角色添加</a>
+      </div>
+      <ul class="ulColumn2">
+       
+       <li>
+        <span class="item_name" style="width:120px;">角色名称：</span>
+        <input type="text" class="textbox textbox_225" value="" name="name" />
+       </li>
+       
+       <li class="level" style=" width: 700px; height: 300px; margin-left: 70px;">
+        <span class="item_name" style="margin-left: 50px; margin-bottom: 10px;">权限：</span>
+        {volist name="list" id='v'}
+	        <prev>
+	        {if condition="$v['fid'] == 0"}
+	        <b style=" display: block; margin-left: 50px; margin-bottom: 5px; margin-top: 5px;"><input type="checkbox" name="level[]" value="{$v.id}" />
+	        {$v.name}</b>
+	        {/if}
+	        {volist name="list" id='vv'}
+		        {if condition="$vv['fid'] == $v['id']"}
+		        <span style="margin-left: 50px;"><input type="checkbox" name="level[]" value="{$vv.id}" />
+		        {$vv.name}</span>
+		        {/if}
+	        {/volist}
+	        </prev>
+        {/volist}
+       </li>
+       <li style="margin-left: 120px;">
+       <input class="all" type="button" value="全选" />
+       <input class="noall" type="button" value="取消全选" />
+       </li>
+       <li>
+        <span class="item_name" style="width:120px;"></span>
+        <input type="submit" class="link_btn" value="提交"/>
+       </li>
+      </ul>
+ </form>
+</section>
+</body>
+</html>
+
+<script>
+	$(function(){
+		//全选
+		$('.all').click(function(){
+			$('.level').find('input').prop('checked',true)
+		})
+		//取消全选
+		$('.noall').click(function(){
+			$('.level').find('input').prop('checked',false)
+		})
+		
+		//点击父级,选中相对应的子级
+		$('.level b').click(function(){
+			var bool=$(this).find('input').is(':checked')
+			$(this).parent().find('span input').prop('checked',bool)
+		})
+		
+		//点击子级,对应的父级也选中
+		$('.level span input').click(function(){
+			var bool=$(this).is(':checked')
+			var parent_bool=$(this).parent().parent().find('b input').is(':checked')
+			if(!parent_bool){
+				$(this).parent().parent().find('b input').prop('checked',true)
+			}
+		})
+		
+		
+	})
+</script>
+

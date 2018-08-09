@@ -1,0 +1,38 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <div class="page_title">
+       <h2 class="fl">管理员列表</h2>
+       <a href="user_detail.html" class="fr top_rt_btn add_icon">添加管理员</a>
+      </div>
+      <table class="table">
+       <tr>
+        <th><input type="checkbox" name="" value="">序号</th>
+        <th>用户名</th>
+        <th>昵称</th>
+        <th>角色</th>
+        <th>注册时间</th>
+        <th>操作</th>
+       </tr>
+       {volist name="list" id="v"}
+       <tr>
+        <td class="center"><input type="checkbox" value="{$v.id}" name="id[]">{$v.id}</td>
+        <td class="center">{$v.uname}</td>
+        <td class="center">{$v.username}</td>
+        <td class="center">{$v.rname}</td>
+        <td class="center">{$v.ctime|date='Y-m-d',###}</td>
+        <td class="center">
+        <!--链接的书写方式-->
+         <a href="{:url('Manager/manUpdate',['id'=>$v.id])}" title="编辑" class="link_icon">&#101;</a>
+         <a href="{:url('Manager/manDelete',['id'=>$v['id']])}" title="删除" class="link_icon">&#100;</a>
+        </td>
+       </tr>
+	   {/volist}
+      </table>
+      <ul>
+      	{$list->render()}
+      </ul>
+ </div>
+</section>
+</body>
+</html>

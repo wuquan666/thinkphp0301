@@ -1,0 +1,146 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <form action="" method="post">
+      <div class="page_title">
+       <h2 class="fl">商品编辑</h2>
+       <a href="adjust_funding.html" class="fr top_rt_btn money_icon">商品编辑</a>
+      </div>
+      <ul class="ulColumn2">
+      	
+        <input type="hidden" name="id" value="{$one.id}" />
+       
+       <li>
+        <span class="item_name" style="width:120px;">商品名称：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.name}" name="name" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">商品简介：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.introduction}" name="introduction" />
+       </li>
+       
+       <div class="row cl" style="margin-top: 50px;">
+			<label style="margin-left: 50px;">产品分类：</label>
+			<div style="margin-left: 125px; margin-top: -20px;">
+				<select name="bid" class="select">
+					<option value="0">--请选择分类--</option>
+					{volist name="cateList" id="bv"}
+					<option value="{$bv.id}" {if condition="$one['bid'] == $bv['id']"}selected="selected"{/if}>{$bv.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</div>
+		
+		<div class="row cl" style="margin-top: 50px;">
+			<label style="margin-left: 50px;">品牌分类：</label>
+			<div style="margin-left: 125px; margin-top: -20px;">
+				<select name="cid" class="select">
+					<option value="0">--请选择品牌--</option>
+					{volist name="brandList" id="cv"}
+					<option value="{$cv.id}" {if condition="$one['cid'] == $cv['id']"}selected="selected"{/if}>{$cv.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</div>
+		
+		<li>
+        <span class="item_name" style="width:120px;">商品货号：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.number}" name="number" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">市场价格：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.market}" name="market" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">销售价格：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.price}" name="price" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">商品库存：</span>
+        <input type="text" class="textbox textbox_225" value="{$one.num}" name="num" />
+       </li>
+       
+       <li>
+       	<p>
+       	{volist name="one['picture']" id="img"}
+       	<img src="{$img|substr=###,1}" width="100" />
+       	
+       	{/volist}
+       	</p>
+        <span class="item_name" style="width:120px;">商品主图：</span>
+        <input type="file" id="picture" class="textbox textbox_225" value="" multiple name="picture[]" />
+       </li>
+       
+       <li style="margin-left: 125px;">
+        <span class="item_name" style=" float: left; margin-left: -48px;">详情：</span>
+        <textarea name="content" style="width:700px;height:200px;visibility:hidden;">{$one.content}</textarea>
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;"></span>
+        <input type="submit" id="btn" class="link_btn" value="提交"/>
+       </li>
+      </ul>
+ </form>
+</section>
+</body>
+</html>
+
+<script>
+	$(function(){
+		var ufile = document.getElementById('picture')
+		var btn = document.getElementById('btn')
+		btn.onclick = function(){
+			var fd = new FormData()
+			for(var i=0;i<ufile.files.length;i++){
+				fd.append('ufile[]',ufile.files[i])
+			}
+			
+			
+			var id = $('input[name="id"]').val()
+			fd.append('id',id)
+			var name = $('input[name="name"]').val()
+			fd.append('name',name)
+			var introduction = $('input[name="introduction"]').val()
+			fd.append('introduction',introduction)
+			var cid = $('select[name="cid"]').val()
+			fd.append('cid',cid)
+			var bid = $('select[name="bid"]').val()
+			fd.append('bid',bid)
+			var number = $('input[name="number"]').val()
+			fd.append('number',number)
+			var market = $('input[name="market"]').val()
+			fd.append('market',market)
+			var price = $('input[name="price"]').val()
+			fd.append('price',price)
+			var num = $('input[name="num"]').val()
+			fd.append('num',num)
+			
+			if(name == ''){
+				alert('商品名称不能为空')
+				return false
+			}
+			
+			$.ajax({
+				type:"post",
+				url:"{:url('proUpdate')}",
+				cache:false,
+				data:fd,
+				contentType:false,
+				processData:false,
+				success:function(data){
+					if(data.info){
+						alert(data.msg)
+						location = "{:url('proList')}"
+					}else{
+						alert(data.msg)
+					}
+				}
+			})
+			return false
+		}
+	})
+</script>

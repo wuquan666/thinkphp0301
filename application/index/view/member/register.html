@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="__PUBLIC__css/common.css" />
+		<link rel="stylesheet" href="__PUBLIC__css/reg.css" />
+	</head>
+
+	<body>
+		<div class="middle">
+			<a href="index.html"><img src="__PUBLIC__img/logo.jpg" alt="logo" /></a>
+			<form id="reg" onsubmit="return false">
+				<label>会员名</label><input type="text" name="name" id="name" />
+				<div id="nametip">*请输入6-16位的用户名!</div>
+				<div id="nametip1">*该会员名已经被注册了！</div>
+				<div id="nametip2">*不允许有空格！</div>
+				<br />
+				<label>密码</label><input type="password" name="pwd" id="pwd" />
+				<div id="pwdtip">*请输入6-18位的密码！</div>
+				<br />
+				<label>确认密码</label><input type="password" name="comfirm_pwd" id="comfirm_pwd" />
+				<div id="comfirm_pwdtip">*密码不一致</div>
+				<br />
+				<label>Email</label><input type="text" name="email" id="email" />
+				<div id="emailtip">*邮箱格式不正确</div>
+				<div id="emailtip1">*该邮箱已经被注册了！</div>
+				<br />
+				<label>手机号</label><input type="text" name="phone" id="phone" />
+				<div id="phonetip">*手机格式不正确</div>
+				<div id="phonetip1">*该手机已经被注册了！</div>
+				<br />
+				<!--<label>验证码</label><input type="text" name="code" id="code" />
+				<span class="vertification_code"><img src="__PUBLIC__img/reg_code_01.jpg"></span>
+				<span class="change_img"><a href="javascript:void(0)">看不清，换一张</a></span>
+				<div id="codetip">*验证码有误</div>-->
+				<br />
+				<input type="checkbox" name="agree" id="agree" /><label for="agree">同意注册协议</label>
+				<div id="checktip">*请勾选协议</div>
+				<br />
+				<!--<input type="submit" id="sub" name="sub" value="注册" onclick="alert('greg');"/>-->
+				<input type="submit" id="sub" name="sub" value="注册" onclick="subInput()"  />
+			</form>
+		</div>
+		<!--尾部-->
+
+		<script type="text/javascript" src="__PUBLIC__js/reg.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>
+
+		
+		
+		{include file="public/footer"}
+		<script>
+			$(function(){
+				$('#sub').click(function(){
+//					alert(123)
+					var	name = $('#name').val()
+					var	pwd = $('#pwd').val()
+					var	pwd_confirm = $('#comfirm_pwd').val()
+					var	email = $('#email').val()
+					var	phone = $('#phone').val()
+					var	code = $('#code').val()
+					$.post("{:url('register')}",{name:name,pwd:pwd,pwd_confirm:pwd_confirm},function(data){
+						if(data.info){
+							alert(data.msg)
+							location="{:url('login')}"
+						}else{
+							alert(data.msg)
+						}
+					})
+				})
+			})
+		</script>
+		

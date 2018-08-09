@@ -1,0 +1,93 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/user.css" />
+		<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<div class="user_list">
+					<h2>会员中心</h2>
+					<dl>
+						<dt><a href="shop_cart.html">我的购物车</a></dt>
+					</dl>
+					<dl>
+						<dt><a href="javascript:void(0)">购物管理</a></dt>
+						<dd><a href="order.html">我的订单</a></dd>
+						<dd><a href="{:url('address')}">收货地址</a></dd>
+					</dl>
+					<dl>
+						<dt><a href="javascript:void(0)">账户设置</a></dt>
+						<dd><a href="javascript:void(0)">账户信息</a></dd>
+						<dd><a href="javascript:void(0)">密码修改</a></dd>
+						<dd><a href="javascript:void(0)">安全退出</a></dd>
+					</dl>
+					<dl>
+						<dt><a href="javascript:void(0)">交易管理</a></dt>
+						<dd><a href="javascript:void(0)">充币记录</a></dd>
+					</dl>
+				</div>
+				<div class="user_info">
+					<span class="user_icon">
+						<img src="__PUBLIC__img/user_img.jpg" alt=""/>
+						<a href="javascript:void(0)">修改个人资料</a>
+					</span>
+					<ol>
+						<li><span class="nickname">某某</span></li>
+						<li>
+							<p class="balance">我的余额<span>111</span></p>
+						</li>
+					</ol>
+					<ul>
+						<li>
+							<span>
+								<a href="javascript:void(0)"><img src="__PUBLIC__img/user_finish_icon.png" /></a>
+							</span>
+							<a href="javascript:void(0)">已完成  8</a>
+						</li>
+						<li>
+							<span>
+								<a href="javascript:void(0)"><img src="__PUBLIC__img/user_unpay_icon.png" /></a>
+							</span>
+							<a href="javascript:void(0)">待付款  1</a>
+						</li>
+						<li>
+							<span>
+								<a href="javascript:void(0)"><img src="__PUBLIC__img/user_transfer_icon.png" /></a>
+							</span>
+							<a href="javascript:void(0)">待收货  1</a>
+						</li>
+						<li>
+							<span>
+								<a href="javascript:void(0)"><img src="__PUBLIC__img/user_comment_icon.png" /></a>
+							</span>
+							<a href="javascript:void(0)">待评价  5</a>
+						</li>
+					</ul>
+				</div>
+				<form class="user">
+					<label for="username">用户名</label><input id="username" type="text" /><br />
+					<label for="logname">登录名</label><input id="logname" type="text" /><br />
+					<label for="nickname">昵称</label><input id="nickname" type="text" /><br />
+					<label>性别</label>
+					<input type="radio" name="sex" value="男" id="male" checked="checked" /><label for="male">男</label>
+					<input type="radio" name="sex" value="女" id="female" /><label for="female">女</label>
+					<input type="radio" name="sex" value="保密" id="secret" /><label for="secret">保密</label><br />
+					<label>生日</label>
+					<select id="year">
+						<option value="year">年</option>
+					</select>
+					<select id="month">
+						<option value="month">月</option>
+					</select>
+					<select id="day">
+						<option value="day">日</option>
+					</select><br />
+					<label>邮箱</label><a href="javascript:void(0)">立即验证</a><br />
+					<label for="realname">真实姓名</label><input type="text" id="realname" /><br />
+					<label for="hobby">兴趣爱好</label><input type="text" id="hobby" /><br />
+					<input type="submit" value="提交" id="submit" name="submit" onclick="return false" />
+				</form>
+			</div>
+		</div>
+		<!--尾部-->
+		
+		<script type="text/javascript" src="__PUBLIC__js/user.js"></script>
+		{include file="public/footer"}

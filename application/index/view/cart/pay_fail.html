@@ -1,0 +1,39 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/pay.css" />
+		<!--内容-->
+		<div class="middle">
+			<div class="fail">
+				<div>
+					<h1>支付失败</h1>
+					<span class="repay"><a href="pay.html">返回支付</a></span>
+					<span class="checkorder"><a href="order_details.html">查看订单</a></span>
+				</div>
+			</div>
+			<div class="box">
+				<p>你需要支付金额<span class="total_price">209.9</span></p>
+				<div class="choice">
+					<h3>请选择支付方式</h3>
+					<span></span>
+					<p>网上银行</p>
+					<ul class="cardpay">
+						<li><img src="__PUBLIC__img/chinaBank.jpg" /></li>
+						<li><img src="__PUBLIC__img/agriculturalBank.jpg" /></li>
+						<li><img src="__PUBLIC__img/constructionlBank.jpg" /></li>
+						<li><img src="__PUBLIC__img/comminicationslBank.jpg" /></li>
+					</ul>
+					<p>其他支付方式</p>
+					<ul class="linepay">
+						<li><img src="__PUBLIC__img/WeChat.jpg" /></li>
+						<li><img src="__PUBLIC__img/Alipay.jpg" /></li>
+					</ul>
+					<h3>请输入支付密码</h3>
+					<span></span>
+					<form class="pay">
+						<input type="text" /><input type="text" /><input type="text" /><input type="text" /><input type="text" /><input type="text" /><br />
+						<input type="submit" id="sub" name="sub" value="确认" onclick="return  false" />
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--尾部-->
+		{include file="public/footer"}

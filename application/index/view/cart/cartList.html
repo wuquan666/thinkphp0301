@@ -1,0 +1,208 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/shop_cart.css" />
+<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<thead>
+						<tr>
+							<td colspan="6">
+								<b style="font-size: 20px; margin-left: -10px;">购物车列表</b>
+								<!--<span><a href="javascript:void(0)">商品列表</a></span>-->
+								<!--<span><a href="javascript:void(0)">降价商品</a></span>
+								<span><a href="javascript:void(0)">库存紧张商品</a></span>
+								<span>已选商品 <i class="price">0.00</i></span>
+								<span class="pay"><a href="confirm_order.html">结算</a></span>-->
+							</td>
+						</tr>
+						<tr>
+							<th><label><input type="checkbox" class="checkAll" />全部</label></th>
+							<th>商品信息</th>
+							<th>数量</th>
+							<th>单价</th>
+							<th>操作</th>
+						</tr>
+						{volist name="list" id="cv"}
+						<tr>
+							<td><input type="checkbox" class="ck" name="id[]" value="{$cv.id}" /></td>
+							<td>
+								<a href="{:url('Product/detail',['id'=>$cv.id])}" class="img"><img  style="margin-left: 40px;" src="{$cv.thumb}" /></a>
+								<div>
+									<a  style="margin-left: 90px;" href="{:url('Product/detail',['id'=>$cv.id])}">{$cv.name}</a><br />
+								</div>
+							</td>
+							<td>
+								<input style="margin-left: 230px;" type="button" class="btn_jian num_jian" value="-"/>
+								<input style="width: 30px; text-align: center;" type="text" class="txt_num" value="{$cv.num}"/>
+								<input type="button" class="btn_jia num_jia" value="+"/>
+							</td>
+							<!--<td><input type="h" class="price" val="{$cv.price}" />￥{$cv.total}</td>-->
+							<td style="" class="price" val="{$cv.price}">￥{$cv.total}</td>
+							<td><input style="margin-left: 50px;" type="button" value="删除" class="btn_del" /></td>
+						</tr>
+						{/volist}
+					</thead>
+					<tbody>
+					
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="6">
+								<span><label><input type="checkbox" class="checkAll" />全部</label></span>
+								<span><input type="button" value="批量删除" class="del" /></span>
+								<span><a href="javascript:void(0)">移入收藏夹</a></span>
+								<span><a href="javascript:void(0)">分享</a></span>
+								<span style="margin-left: 150px;">已选商品 <i id="choose_num" class="b_num" style="width: 200px;">0</i>件</span>
+								<span>合计 <i id="sum" class="span_total">0</i></span>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<div style="float: right; margin-right: 50px; margin-bottom: 100px; overflow: hidden;">
+					<input style="width: 80px; height: 30px;" type="button" class="btn_last" value="上一步" />
+					<input style="width: 80px; height: 30px;" type="button" class="btn_next" value="下一步" />
+				</div>
+				
+			</div>
+			
+		</div>
+		<!--尾部-->
+		<script type="text/javascript" src="__PUBLIC__js/shopCar.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__js/shop_cart.js"></script>
+		{include file="public/footer"}
+
+<script>
+	$(function(){
+		//数量加
+		$(".num_jia").each(function(a){
+			$(this).click(function(){
+//				alert(1)
+//				return false;
+				var i=parseInt($(".txt_num").eq(a).val());
+				i=i+1;
+				$(".txt_num").eq(a).val(i);
+				//小计
+				var price = $(this).parent().next().attr('val')
+				$(this).parent().next().text('￥'+price*i)
+				total_price()
+			})
+		})
+		//数量减
+		$(".num_jian").each(function(a){
+			$(this).click(function(){
+				var i=parseInt($(".txt_num").eq(a).val());
+				if(i>1){
+					i=i-1;
+					$(".txt_num").eq(a).val(i);
+				}
+				//小计
+				var price = $(this).parent().next().attr('val')
+				$(this).parent().next().text('￥'+price*i)
+				total_price()
+			})
+		})
+		
+		$(".ck").click(function(a){
+			var ck_ll_bool = $('.checkAll').is(":checked")
+			if(ck_ll_bool) $('.checkAll').prop('checked',false)
+			total_price()
+		})
+		
+		$(".checkAll").click(function(){
+			var bool = $(this).is(":checked")
+			if(bool){
+				$('.checkAll').prop('checked',true)
+				$('.ck').prop('checked',true)
+				total_price()
+			}else{
+				$('.checkAll').prop('checked',false)
+				$('.ck').prop('checked',false)
+				$('.b_num').text(0)
+				$('.span_total').text(0)
+			}
+			
+		})
+		
+		//单个删除
+		$('.btn_del').each(function(a){
+			$(this).click(function(){
+//				alert(1)
+//				return false;
+				var id = $(this).parent().parent().find('.ck').val()
+				var obj = $(this)
+//				alert(1)
+//				return false;
+				$.post("{:url('onedel')}",{id:id},function(data){
+//					alert(data)
+//					return false;
+					if(data.info){
+						obj.parent().parent().remove()
+					}
+					total_price()
+				})				
+			})
+		})
+		
+		//批量删除
+		$('.del').click(function(){
+			var allid = []
+			$('.ck:checked').each(function(){
+				allid.push($(this).val())
+			})
+			if(allid ==''){
+				alert('至少选择一个商品')
+			}else{
+				$.post("{:url('alldel')}",{id:allid},function(data){
+					if(data.info){
+						$('.ck:checked').each(function(){
+							$(this).parent().parent().remove()
+						})
+					}
+					$('checkAll').prop('checked',false )
+					total_price()
+				})
+			}
+		})
+		//下一步,监测数据，更改购物车选中数据
+		$('.btn_next').click(function(){
+			var data = []
+			$('.ck:checked').each(function(){
+				var select = []
+				select.push($(this).val())
+				select.push($(this).parent().parent().find('.txt_num').val())
+				data.push(select)
+ 			})
+			if(data==''){
+				alert('至少选中一个商品')
+			}else{
+				$.post("{:url('check')}",{data:data},function(data){
+					if(data.info){
+						location="{:url('confirm')}"
+					}
+				})
+			}
+		})
+		
+	})
+	
+	function total_price(){
+		var num = 0
+		var total = 0
+		$('.ck').each(function(){
+
+			var bool = $(this).is(":checked")
+			if(bool){
+				//数量
+				var cnum = parseInt($(this).parent().parent().find('.txt_num').val())
+				num = num+cnum
+//					alert(cnum)
+				//价格
+				var cprice = $(this).parent().parent().find('.price').text()
+				cprice = parseFloat(cprice.substr(2))
+				total = total+cprice
+			}
+		})
+		$('.b_num').text(num)
+		$('.span_total').text(num)
+	}
+</script>

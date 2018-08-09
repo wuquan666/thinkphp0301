@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__css/style.css">
+<script src="__PUBLIC__js/jquery.js"></script>
+<script src="__PUBLIC__js/jquery-1.9.1.js"></script>
+<!--aside nav-->
+<style>
+.bb{ width: 550px; height: 100px; float: right;}
+.bb a{ float: left; display: block; background: #d8cece; padding-left: 12px; padding-right: 12px; margin-left: 10px; height: 30px; text-align: center; line-height: 30px; border-radius:5px; border: 1px #a09c9c solid;}
+.bb a:hover{ color: #FFFFFF; background: #f71e1e; border: 1px #000000 solid;}
+.bb a.current{ color: #FFFFFF; background: #f71e1e; border: 1px #000000 solid;}
+</style>
+
+	<link rel="stylesheet" href="__PUBLIC__kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="__PUBLIC__kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="__PUBLIC__kindeditor/kindeditor-all-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__kindeditor/lang/zh-CN.js"></script>
+	<script charset="utf-8" src="__PUBLIC__kindeditor/plugins/code/prettify.js"></script>
+	<script>
+		KindEditor.ready(function(K){
+			var editor1 = K.create('textarea[name="content"]', {
+				cssPath : '__PUBLIC__kindeditor/plugins/code/prettify.css',
+				uploadJson : '__PUBLIC__kindeditor/php/upload_json.php',
+				fileManagerJson : '__PUBLIC__kindeditor/php/file_manager_json.php',
+				allowFileManager : true,
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						K('form[name=example]')[0].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						K('form[name=example]')[0].submit();
+					});
+				}
+			});
+			prettyPrint();
+		});
+	</script>
+
+<header>
+ <h1><img src="__PUBLIC__images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <li><a href="http://www.mycodes.net" target="_blank" class="website_icon">站点首页</a></li>
+  <li><a href="#" class="clear_icon">清除缓存</a></li>
+  <li><a href="#" class="admin_icon">DeathGhost</a></li>
+  <li><a href="#" class="set_icon">账号设置</a></li>
+  <li><a href="{:url('Admin/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <h2><a href=""  style="font-size: 16px;">你好,{$Think.session.user}</a></h2>
+ 
+ <ul>
+  {volist name="menu" id='nav'}
+  {if condition="$nav['fid'] == 0"}
+  {if condition="in_array($nav['id'],$adminlevel)"}
+  <li>
+   <dl>
+    <dt><a href="">{$nav.name}</a></dt>
+	    {volist name="menu" id='v'}
+	    {if condition="$v['fid'] == $nav['id'] && $v['state']==1"}
+	    {if condition="in_array($nav['id'],$adminlevel)"}
+	    <dd><a href="{:url($v['controller'].'/'.$v['action'])}" {if condition="$controller==strtolower($v.controller) && $action==strtolower($v.action)"}class="current"{/if} >{$v.name}</a></dd>
+	    {/if}
+	    {/if}
+	    {/volist}
+   </dl>
+  </li>
+  {/if}
+  {/if}
+  {/volist}
+ </ul>
+</aside>
+{__CONTENT__}

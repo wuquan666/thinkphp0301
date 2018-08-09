@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<link rel="stylesheet" href="__PUBLIC__css/common.css" />
+		<link rel="stylesheet" href="__PUBLIC__css/login.css" />
+	</head>
+
+	<body>
+		<div class="middle">
+			<a href="index.html"><img src="__PUBLIC__img/logo.jpg" alt="logo" /></a>
+			<form id="login" onsubmit="return false">
+				<label for="name">登录名</label><input type="text" name="name" id="name" />
+				<div id="nametip">*请输入6-16位的用户名!</div>
+				<div id="nametip1">*该用户还未注册 ，请先注册！</div>
+				<div id="nametip2">*不允许有空格！</div>
+				<br />
+				<label for="pwd">密码</label><input type="password" name="pwd" id="pwd" />
+				<span class="square"></span>
+				<span class="forget_pwd"><a href="javascript:void(0)">忘记密码</a></span>
+				<div id="pwdtip">*请输入6-18位的密码！</div>
+				<div id="pwdtip1">*密码错误！</div>
+				<br />
+				<!--<label>验证码</label><input type="text" name="code" id="code" />
+				<span class="vertification_code"><img src="__PUBLIC__img/log_code_01.jpg"></span>
+				<span class="change_img"><a href="javascript:void(0)">看不清，换一张</a></span>
+				<div id="codetip">*验证码有误</div>-->
+				<br />
+				<input type="submit" id="sub" name="sub" value="登录" onclick="subInput()">
+				<span class="registic"><a href="reg.html">免费注册</a></span>
+			</form>
+		</div>
+		<!--尾部-->
+		<script type="text/javascript" src="__PUBLIC__js/login.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>
+		{include file="public/footer"}
+		
+		<script>
+			$(function(){
+				$('#sub').click(function(){
+//					alert(123)
+					var	name = $('#name').val()
+					var	pwd = $('#pwd').val()
+					$.post("{:url('login')}",{name:$("#name").val(),pwd:$("#pwd").val()},function(data){
+						if(data.info){
+							alert(data.msg)
+							location="{:url('index')}"
+						}else{
+							alert(data.msg)
+						}
+					})
+				})
+			})
+		</script>

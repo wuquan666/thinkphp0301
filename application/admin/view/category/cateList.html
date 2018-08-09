@@ -1,0 +1,33 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <div class="page_title">
+       <h2 class="fl">分类列表</h2>
+       <a href="user_detail.html" class="fr top_rt_btn add_icon">添加分类</a>
+      </div>
+      <table class="table">
+       <tr>
+        <th>序号</th>
+        <th>分类名称</th>
+        <th>父级id</th>
+        <th>操作</th>
+       </tr>
+       {volist name="list" id="v"}
+       <tr>
+        <td class="center">{$v.id}</td>
+        <td class="center">{$v.name}</td>
+        <td class="center">{$v.fid}</td>
+        <td class="center">
+        <!--链接的书写方式-->
+         <a href="{:url('Category/cateUpdate',['id'=>$v.id])}" title="编辑" class="link_icon">&#101;</a>
+         <a href="{:url('Category/cateDelete',['id'=>$v['id']])}" title="删除" class="link_icon">&#100;</a>
+        </td>
+       </tr>
+	   {/volist}
+      </table>
+      <ul>
+      </ul>
+ </div>
+</section>
+</body>
+</html>

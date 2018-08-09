@@ -1,0 +1,82 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/confirm_order.css" />
+		
+		<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<ul class="address">
+					{volist name="addrlist" id="v"}
+					<li>
+						<span><input type="checkbox" name="status" class="ck" value="{$v.id}" style=" margin-left: 100px;" />&nbsp;选择地址</span>
+						<p style="">详细地址:{$v.province} {$v.city} {$v.country} {$v.address}</p>
+						<span class="name" style=" float: left; margin-top: -20px; margin-left:100px;">姓名:{$v.linkman}</span><br />
+						<span style=" float: left; margin-top: -20px; margin-left:60px;" class="mobile">手机号:{$v.mobile}</span><br />
+						<span style=" float: left; margin-top: -20px; margin-left:50px;" class="email">邮箱:{$v.email}</span><br />
+					</li>
+					{/volist}
+					<li>
+						<span class="del"><a href="javascript:void(0)"></a></span>
+					</li>
+					
+				</ul>
+				<h5>确认订单信息</h5>
+				<div class="title">
+					<span class="pro_info">商品信息</span>
+					<span class="count">数量</span>
+					<span class="unit">单价</span>
+					<span class="total">小计</span>
+				</div>
+				{volist name="list" id="vv"}
+				<ol class="order_info">
+					<li>
+						<span class="pro_img"><a href="{:url('Product/detail',['id'=>$vv.pid])}"><img src="{$vv.thumb}" /></a></span>
+						<h5><a href="{:url('Product/detail',['id'=>$vv.pid])}">{$vv.name}</a></h5>
+						<span class="color_sort">颜色分类 灰色</span>
+						<span class="count">{$vv.num}</span>
+						<span style="display: block; width: 90px; margin-left: -70px;">￥{$vv.price}</span>
+						<span class="total">￥{$vv.total}</span>
+						<!--<div>
+							<span class="trans_method">运输方式：普通运输</span>
+							<span class="unit">10</span>
+							<span class="total">10</span>
+						</div>-->
+					</li>	
+				</ol>
+				{/volist}
+				<div class="summation">
+					<label><input type="radio" name="rad" class="state" checked="checked" value="1" />支付宝支付</label>
+					<label><input type="radio" name="rad" class="state" checked="checked" value="2" />余额</label>
+					<span class="sum">合计:<span class="sum_price">￥{$total}</span></span>
+					<span class="sum">数量总计: <span class="sum_price">{$num}件</span></span>
+						<form onsubmit="return false">
+							<input type="submit" name="sub" class="btn btn_order" id="sub" value="提交订单" />
+						</form>
+				</div>
+						
+			</div>
+		</div>
+		<!--尾部-->
+		
+		<script type="text/javascript" src="__PUBLIC__js/comfirm_order.js" ></script>
+		{include file="public/footer"}
+		
+<script>
+	$(function(){
+		$('.btn_order').click(function(){
+			var addressid = $('.ck:checked').val()
+			var state = $('.state:checked').val()
+			
+			if(addressid=='' || addressid== null || addressid== 'undefined'){
+				alert('请选择一个收货地址')
+			}
+			$.post("{:url('orders')}",{addressid:addressid,state:state},function(data){
+				if(data.info){
+					location = '/pay/'+data.orderid
+				}else{
+					alert(data.info)
+				}
+			})
+		})
+	})
+	
+</script>

@@ -1,0 +1,59 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/pay.css" />
+		
+		<!--内容-->
+		<div class="middle">
+			<input type="hidden"name="" id="orderid" value="{$orderid}">
+			<input type="hidden"name="" id="total" value="{$total}">
+			<div class="box">
+				<p>你需要支付金额:<span class="total_price">{$total}元</span></p>
+				<div class="choice">
+					<h3>请选择支付方式</h3>
+					<p>订单编号:{$orderid}</p>
+					
+					<ul class="linepay">
+						<li><input style="margin-left: 40px; margin-top: 15px;" type="radio" name="rad" class="state" checked="checked" value="1" />支付宝支付</li>
+						<li><input style="margin-left: 40px; margin-top: 15px;" type="radio" name="rad" class="state" checked="checked" value="2" />余额</li>
+					</ul>
+					<h3>请输入支付密码</h3>
+					<span></span>
+					<form class="pay" onsubmit="return false">
+						<input style="width: 300px; border: 1px #000000 solid;" id="pwd" type="text" name="cash" /></br>
+						<input type="button" class="but" id="sub" name="sub" value="确认" />
+						<!--<input type="submit" id="sub" name="sub" value="确认" onclick="subInput()" />-->
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--尾部-->
+		<script type="text/javascript" src="__PUBLIC__js/pay.js" ></script>
+		{include file="public/footer"}
+
+<script>
+	$(function(){
+		$('.but').click(function(){
+			var orderid = $('#orderid').val()
+			var pwd = $('#pwd').val()
+			var total = $('#total').val()
+			
+			if(pwd=='' || pwd== null || pwd== 'undefined'){
+				alert('请输入支付密码')
+			}
+			$.post("{:url('payment')}",{orderid:orderid,pwd:pwd,total:total},function(data){
+//				console.log(data)
+				if(data){
+//					alert(data.msg)
+					location = "{:url('pay_suceess')}"
+				}else{
+					if(data.code == 400){
+						alert(data.msg)
+						return false
+					}
+					location = "{:url('pay_fail')}"
+				}
+			})
+		})
+	})
+	
+</script>
+

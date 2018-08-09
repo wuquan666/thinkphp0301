@@ -1,0 +1,103 @@
+{__NOLAYOUT__}
+<!--__PUBLIC__-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>后台登录</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__css/style.css" />
+<style>
+body{height:100%;background:#16a085;overflow:hidden;}
+canvas{z-index:-1;position:absolute;}
+</style>
+<script src="__PUBLIC__js/jquery.js"></script>
+<script src="__PUBLIC__js/verificationNumbers.js"></script>
+<script src="__PUBLIC__js/Particleground.js"></script>
+<script>
+$(document).ready(function() {
+  //粒子背景特效
+$('body').particleground({
+    dotColor: '#5cbdaa',
+    lineColor: '#5cbdaa'
+});
+  //验证码
+//createCode();
+  //测试提交，对接程序删除即可
+//$(".submit_btn").click(function(){
+//	  location.href="index.html";
+//	  });
+});
+</script>
+</head>
+<body>
+<dl class="admin_login">
+ <dt>
+  <strong>站点后台管理系统dsasadasdasd</strong>
+  <em>Management System</em>
+ </dt>
+ <form action="" method="post">
+	 <dd class="user_icon">
+	  <input type="text" placeholder="账号" class="login_txtbx" name="uname" style="margin-bottom: 5px; height: 38px;"/>
+	 </dd>
+	 <dd class="pwd_icon">
+	  <input type="password" placeholder="密码" class="login_txtbx" name="pwd" style="margin-bottom: 5px; height: 38px;"/>
+	 </dd>
+	 <dd class="val_icon">
+	  <div class="checkcode" style="width: 120px; height: 36px;">
+	    <input type="text" placeholder="验证码" class="login_txtbx" name="code">
+	    <img src="{:captcha_src()}" id="code" style="margin-left: 150px; margin-top: -42px; cursor:pointer;"/>
+	  </div>
+	 </dd>
+	 
+	 <dd>
+	  <input type="submit" value="立即登录" class="button" id="button" style="height: 50px; width: 302px;"/>
+</form>
+ <dd>
+   <p>© 2015-2016 DeathGhost 版权所有</p>
+  <p>陕B2-20080224-1</p>
+ </dd>
+</dl>
+</body>
+</html>
+
+<script>
+	$(function(){
+		$('#button').click(function(){
+//			alert(1)
+//			return false
+			var uname = $('input[name="uname"]').val()
+			var pwd = $('input[name="pwd"]').val()
+			var code = $('input[name="code"]').val()
+			if(uname == '' || uname == null || uname==undefined){
+				alert('用户名不能为空')
+				return false
+			}
+			if(pwd == '' || pwd == null || pwd==undefined){
+				alert('密码不能为空')
+				return false
+			}
+			if(code == '' || code == null || code==undefined){
+				alert('验证码不能为空')
+				return false
+			}
+			$.post("{:url('Admin/login')}",{uname:uname,pwd:pwd,code:code},function(data){
+				if(data.error){
+					alert(data.msg)
+					location="{:url('index/index')}"
+				}else{
+					alert(data.msg)
+					change_code()
+				}
+			},'json')
+			return false
+		})
+		$('#code').click(function(){
+			change_code()
+		})
+	})
+	
+function change_code(){
+	$('#code').attr('src',"{:captcha_src()}"+'?'+Math.random())
+}
+</script>

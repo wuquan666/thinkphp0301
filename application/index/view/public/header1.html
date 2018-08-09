@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{$title}</title>
+		<!--<link rel="stylesheet" href="__PUBLIC__css/bootstrap.css" />-->
+		<link rel="stylesheet" href="__PUBLIC__css/common.css" />
+		<script type="text/javascript" src="__PUBLIC__js/jquery.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/common.js"></script>
+	</head>
+
+	<body>
+		<!--头部-->
+		<div class="header">
+
+			<div class="top">
+				{if condition="session('?name')"}
+				<div>
+					<span class="shop_car"><a href="{:url('Cart/cartList')}">购物车</a></span>
+					<span class="msg"><a href="{:url('Member/index')}">我的账户</a></span>
+					<span class="login"><a href="{:url('Member/logout')}">退出</a></span>
+					<span class="register"><a href="{:url('Member/index')}">{$Think.session.name}</a></span>
+				</div>
+				{else /}
+				<div>
+					<span class="shop_car"><a href="{:url('Cart/cartList')}">购物车</a></span>
+					<span class="msg"><a href="{:url('Member/index')}">我的账户</a></span>
+					<span class="login"><a href="{:url('Member/login')}">登录</a></span>
+					<span class="register"><a href="{:url('Member/register')}">注册</a></span>
+				</div>
+				{/if}
+			</div>
+			<!--logo&搜索栏-->
+			<div>
+				<div class="logo"><a href="{:url('Index/index')}"><img src="__PUBLIC__img/logo.jpg" alt="logo"></a></div>
+				<form class="search"><label>宝贝</label><input type="text" name="search_input" value="请输入关键字" /><button>搜索</button></form>
+			</div>
+		</div>

@@ -1,0 +1,30 @@
+		{include file="public/header1"}
+		<link rel="stylesheet" href="__PUBLIC__css/shop_list.css" />
+		<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<ol class="pro_list">
+					{volist name="plist" id="pv"}
+					<li>
+						<a href="{:url('detail',['id'=>$pv.id])}"><img src="{$pv.thumb|substr=###,1}" width="293" height="280" alt="" /></a>
+						<h6><a href="{:url('detail',['id'=>$pv.id])}">{$pv.name}</a></h6>
+						<span class="price">¥<i>{$pv.price}</i></span>
+						<span class="purchase"><a href="confirm_order.html">点击购买</a></span>
+						<p>
+							<span class="quantity">销售量 {$pv.number}</span>
+							<span class="stock">库存 {$pv.num}件</span>
+						</p>
+					</li>
+					{/volist}
+				</ol>
+				<div class="page_list">
+					{$plist->render()}
+				</div>
+
+			</div>
+		</div>
+		<!--尾部-->
+		
+		<script type="text/javascript" src="js/shop_list.js" ></script>
+		<script type="text/javascript" src="js/page.js" ></script>
+		{include file="public/footer"}

@@ -1,0 +1,34 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <div class="page_title">
+       <h2 class="fl">类型</h2>
+       <a href="{:url('typeAdd')}" class="fr top_rt_btn add_icon">添加类型</a>
+      </div>
+      <table class="table">
+       <tr>
+        <th>Id</th>
+        <th>类型名称</th>
+        <th>属性</th>
+        <th>操作</th>
+       </tr>
+       {volist name="list" id="v"}
+       <tr>
+        <td class="center">{$v.id}</td>
+        <td class="center">{$v.name}</td>
+        <td class="center"><a href="{:url('Attribute/attrList',['typeid'=>$v.id])}">属性列表</a></td>
+        <td class="center">
+        <!--链接的书写方式-->
+         <a href="{:url('Type/typeUpdate',['id'=>$v.id])}" title="编辑" class="link_icon">&#101;</a>
+         <a href="{:url('Type/typeDelete',['id'=>$v['id']])}" title="删除" class="link_icon">&#100;</a>
+        </td>
+       </tr>
+	   {/volist}
+      </table>
+      <ul>
+      	{$list->render()}
+      </ul>
+ </div>
+</section>
+</body>
+</html>

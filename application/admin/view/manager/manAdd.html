@@ -1,0 +1,50 @@
+
+<section class="rt_wrap content mCustomScrollbar">
+ <form action="" method="post">
+      <div class="page_title">
+       <h2 class="fl">管理员添加</h2>
+       <a href="adjust_funding.html" class="fr top_rt_btn money_icon">管理员添加</a>
+      </div>
+      <ul class="ulColumn2">
+      	
+      	<div class="row cl" style="margin-top: 50px;">
+			<label style="margin-left: 50px;">角色：</label>
+			<div style="margin-left: 125px; margin-top: -20px;">
+				<select name="rid" class="select">
+					<option value="0">--请选择管理员--</option>
+					{volist name="onlist" id='v'}
+					<option value="{$v.id}">{$v.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</div>
+       
+       <li>
+        <span class="item_name" style="width:120px;">账号：</span>
+        <input type="text" class="textbox textbox_225" value="" name="uname" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">昵称：</span>
+        <input type="text" class="textbox textbox_225" value="" name="username" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">密码：</span>
+        <input type="text" class="textbox textbox_225" value="" name="pwd" />
+       </li>
+       
+       <li>
+        <span class="item_name" style="width:120px;">确认密码：</span>
+        <input type="text" class="textbox textbox_225" value="" name="pwd_confirm" />
+       </li>
+       
+        <span class="item_name" style="width:120px; margin-left: 125px;"></span>
+        <input type="submit" class="link_btn" value="提交"/>
+       </li>
+      </ul>
+ </form>
+</section>
+</body>
+</html>
+

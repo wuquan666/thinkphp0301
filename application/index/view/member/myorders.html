@@ -1,0 +1,68 @@
+		{include file="public/header"}
+		<link rel="stylesheet" href="__PUBLIC__css/order_details.css" />
+		<!--内容-->
+		<div class="middle">
+			<div class="box">
+				<div class="progress">
+					<ul>
+						<li>
+							<h4>拍下宝贝</h4>
+							<span></span>
+							<p></p>
+						</li>
+						<li>
+							<h4>付款</h4>
+							<span></span>
+							<p></p>
+						</li>
+						<li>
+							<h4>卖家发货</h4>
+							<span></span>
+							<p><span></span></p>
+						</li>
+						<li>
+							<h4>收货</h4>
+							<span></span>
+							<p></p>
+						</li>
+						<li>
+							<h4>评价</h4>
+							<span></span>
+						</li>
+					</ul>
+				</div>
+
+				<table cellpadding="0" cellspacing="0" border="0">
+					<thead>
+						<tr>
+							<th>商品信息</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>优惠</th>
+							<th>交易状态</th>
+						</tr>
+					</thead>
+					<tbody>
+						{volist name="list" id="v"}
+						<tr>
+							<td>
+								<div>
+									<a href="pro_details.html"><img src="{$v.thumb|substr=###,1}" /></a>
+									<h6><a href="pro_details.html">{$v.name}</a></h6>
+								</div>
+							</td>
+							<td>{$v.price}</td>
+							<td>{$v.num}</td>
+							<td>0</td>
+							<td><span class="receiving">待收货</span></td>
+						</tr>
+						{/volist}
+					</tbody>
+				</table>
+				<div class="page_list">
+					{$list->render()}
+				</div>
+			</div>
+		</div>
+		<!--尾部-->
+		{include file="public/footer"}
